@@ -3,23 +3,68 @@
 
 import math
 
-
 def get_num_letters(text):
-	return 0
+	nombre_lettres = 0
+	for lettre in text:
+		if lettre.isalnum():
+			nombre_lettres += 1
+	return nombre_lettres
 
 def get_word_length_histogram(text):
-	return [0]
+	mots = text.split()
+
+	max_lettre = 0
+	# Identifier le mot le plus long
+	for mot in mots:
+		if get_num_letters(mot) > max_lettre:
+			max_lettre = len(mot)
+
+	# Créer le histogramme vide
+	histogramme = []
+	for idx in range( max_lettre):
+		histogramme.append(0)
+
+	# Compter le nombre de mot de chaque lettre
+	for mot in mots:
+		histogramme[ get_num_letters(mot) ] += 1
+
+	return histogramme
 
 def format_histogram(histogram):
 	ROW_CHAR = "*"
+	resultat = ''
 
-	return ""
+	for idx, valeur in enumerate(histogram):
+		if idx == 0:
+			continue
+		resultat += f"{idx: >2} {ROW_CHAR * valeur}\n"
+
+	return resultat
 
 def format_horizontal_histogram(histogram):
 	BLOCK_CHAR = "|"
 	LINE_CHAR = "¯"
 
-	return ""
+	resultat = ''
+
+	# Ajouter l'axe
+	for _ in enumerate(histogram):
+		# if idx == 0:
+		# 	continue
+		resultat += LINE_CHAR
+
+	for niveau in range(max(histogram)):
+		ligne_courante = ''
+		for idx, valeur in enumerate(histogram):
+			if idx == 0:
+				continue
+			if valeur >= niveau + 1:
+				ligne_courante += BLOCK_CHAR
+			else:
+				ligne_courante += ' '
+		resultat = ligne_courante + '\n' + resultat
+
+	return resultat
 
 
 if __name__ == "__main__":
