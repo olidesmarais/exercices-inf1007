@@ -5,29 +5,70 @@ from typing import List
 
 
 def convert_to_absolute(number: float) -> float:
-    return 0
+    return -number if number < 0 else number
 
 
 def use_prefixes() -> List[str]:
     prefixes, suffixe = 'JKLMNOPQ', 'ack'
-
-    return [""]
+    resultat = []
+    for prefixe in prefixes:
+        resultat.append(prefixe + suffixe)
+    return resultat
 
 
 def prime_integer_summation() -> int:
-    return 0
+    nombre_premier = [2, 3, 5]
+    nombre = 6
+    while len(nombre_premier) < 100:
+        est_premier = True
+        for diviseur in range(2, nombre // 2):
+            if nombre % diviseur == 0:
+                est_premier = False
+                break
+        if est_premier:
+            nombre_premier.append(nombre)
+        nombre += 1
+    return sum(nombre_premier)
 
 
 def factorial(number: int) -> int:
-    return 0
+    resultat = 1
+    index = 1
+    while index < number:
+        resultat *= index
+        index += 1
+    return resultat
 
 
 def use_continue() -> None:
-    pass
+    for index in range( 1, 11):
+        if index == 5:
+            continue
+        else:
+            print(index)
 
 
 def verify_ages(groups: List[List[int]]) -> List[bool]:
-    return []
+    resultat = []
+    for groupe in groups:
+        # - Critère de taille: Si le groupe possède plus que 10 membres ou 3 membres et moins, il n'est pas acceptable
+        if not 3 < len(groupe) <= 10:
+            resultat.append(False)
+            continue
+        # - Critère d'âge: Si au moins un membre du groupe à exactement 25 ans, alors le groupe est acceptable peut-importe les autres critères d'âges
+        if 25 in groupe:
+            resultat.append(True)
+            continue
+        mineur = False
+        plus_70 = False
+        # - Critère d'âge: Si au moins un membre du groupe est mineur, le groupe n'est pas acceptable
+        # - Critère d'âge: Si un membre du groupe est plus vieux que 70 ans et qu'un autre membre du groupe à exactement 50 ans, 
+        #   le groupe n'est pas acceptable
+        if (min(groupe) < 18) or (50 in groupe and max(groupe) > 70):
+            resultat.append(False)
+
+        resultat.append(True)
+    return resultat
 
 
 def main() -> None:
