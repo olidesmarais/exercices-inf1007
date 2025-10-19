@@ -4,20 +4,34 @@
 from collections import deque
 
 
-def get_fibonacci_number(TODO):
-	pass
+def get_fibonacci_number(index):
+	return 0 if index == 0 else 1 if index == 1 else get_fibonacci_number(index - 1) + get_fibonacci_number(index - 2)
 
-def get_fibonacci_sequence(TODO):
-	pass
+def get_fibonacci_sequence(nombre_elements):
+	sequence = [0, 1]
+	if nombre_elements <= 2:
+		return sequence[:nombre_elements]
+	for idx in range(2, nombre_elements):
+		sequence.append(sequence[-1] + sequence[-2])
+	
+	return sequence
 
-def get_sorted_dict_by_decimals(TODO):
-	pass
+def get_sorted_dict_by_decimals(dictionnaire):
+	dictionnaire_trie = dict(sorted( dictionnaire.items(), key=lambda item: item[1] % 1))
+	return dictionnaire_trie
 
 def fibonacci_numbers(length):
-	pass
+	sequence = [0, 1]
+	index = 0
+	while index < length:
+		yield sequence[0]
+		sequence.append( sequence[0] + sequence[1] )
+		sequence.pop(0)
+		index += 1
 
-def build_recursive_sequence_generator(TODO):
-	pass
+def build_recursive_sequence_generator(derniers_elements, fibo_def, garder_en_memoire=False):
+	yield fibo_def(derniers_elements)
+	
 
 
 if __name__ == "__main__":
